@@ -2,10 +2,29 @@ package main
 
 import "fmt"
 
-func main() {
-	var i int = 1
-	for {
-		fmt.Println(i)
-		i++
+func evenNumber(number int) {
+	for i := 1; i <= number; i++ {
+		if i%2 == 0 {
+			fmt.Println("Even Number")
+		} else {
+			fmt.Println(i)
+		}
 	}
+
+}
+
+// func reversCount(count int) {
+// 		for i := count; i > 0; i-- {
+// 		fmt.Println(i)
+// 	}
+// }
+func reversCount(count int) {
+    for i;i= count; i > 0; i-- {
+        fmt.Println(i)
+    }
+}
+
+func main() {
+	// evenNumber(50)
+	reversCount(50)
 }
