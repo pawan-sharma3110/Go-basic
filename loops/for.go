@@ -47,6 +47,20 @@ func main() {
 		fmt.Println(n)
 	}
 
-	// evenNumber(50)
-	// reversCount(50)
+	evenNumber(50)
+	reversCount(50)
+	for {
+		fmt.Println("Infinite loop")
+		break // breaking the loop after one iteration
+	}
+	for i := 0; i < 10; i++ {
+		if i == 3 {
+			continue
+		}
+		fmt.Println(i)
+		if i == 5 {
+			break
+		}
+	}
+
 }
