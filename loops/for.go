@@ -13,16 +13,16 @@ func evenNumber(number int) {
 
 }
 
-// func reversCount(count int) {
-// 		for i := count; i > 0; i-- {
-// 		fmt.Println(i)
-// 	}
-// }
 func reversCount(count int) {
-    for i;i= count; i > 0; i-- {
-        fmt.Println(i)
-    }
+		for i := count; i > 0; i-- {
+		fmt.Println(i)
+	}
 }
+// func reverseCount(count int) {
+//     for i := count; i > 0; i-- {
+//         fmt.Println(i)
+//     }
+// }
 
 func main() {
 	// evenNumber(50)
