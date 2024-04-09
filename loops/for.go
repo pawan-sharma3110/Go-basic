@@ -14,17 +14,39 @@ func evenNumber(number int) {
 }
 
 func reversCount(count int) {
-		for i := count; i > 0; i-- {
+	for i := count; i > 0; i-- {
 		fmt.Println(i)
 	}
 }
-// func reverseCount(count int) {
-//     for i := count; i > 0; i-- {
-//         fmt.Println(i)
-//     }
-// }
 
 func main() {
+
+	i := 1
+	for i <= 3 {
+		fmt.Println(i)
+		i = i + 1
+	}
+
+	for j := 0; j < 3; j++ {
+		fmt.Println(j)
+	}
+
+	for i := range 10 {
+		fmt.Println("range", i)
+	}
+
+	for {
+		fmt.Println("loop")
+		break
+	}
+
+	for n := range 6 {
+		if n%2 == 0 {
+			continue
+		}
+		fmt.Println(n)
+	}
+
 	// evenNumber(50)
-	reversCount(50)
+	// reversCount(50)
 }
