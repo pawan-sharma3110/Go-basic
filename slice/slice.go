@@ -1,35 +1,108 @@
 package main
 
 import (
-	"fmt"
+	"encoding/json"
+	"log"
+	"net/http"
 )
 
-var list []string
-
-var names = make([]string, 10)
-var try = []int{1, 2, 3, 4}
+var s1 School
 
 func main() {
-	names[0] = "Pawan"
-	names[1] = "vikash"
-	names[2] = "arun"
-	names[3] = "ashu"
-	names[4] = "pardeep"
-	names[5] = "usha"
-	names[7] = "ashu"
-	list = append(list, "kuch")
-	fmt.Println(list)
 
-	list = append(list, "ashu001", "001kuc00111h")
-	fmt.Println(list)
+	s1.Classes = append(s1.Classes, Class{
+		Name: "12th",
+		Students: []Student{{
+			Name:   "Pawan",
+			Age:    "2 months",
+			RollNo: 12,
+			Parents: Parents{
+				MotherName: "Kamlesh",
+				FatherName: "Sombir",
+				ContactDetails: []ContactDetails{{
+					Addresses: []Address{
+						{
+							HNO:         12,
+							AddressType: AddressTypePermanent,
+						},
+					},
+					Mobiles: []MobileNumbers{
+						{
+							Number: []string{
+								"7988323110",
+							},
+						},
+					},
+				}},
+			},
+		}},
+	})
 
-	for i, v := range list {
-		fmt.Println(i, v)
+	// data, err := json.MarshalIndent(s1, "", "   ")
+	// if err != nil {
+	// 	fmt.Println(err)
+	// 	return
+	// }
+
+	// fmt.Println(string(data))
+
+	http.HandleFunc("/home", ShowSchoolDetails)
+	http.ListenAndServe(":8090", nil)
+}
+
+func ShowSchoolDetails(w http.ResponseWriter, r *http.Request) {
+	if r.Method == "GET" {
+		err := json.NewEncoder(w).Encode(s1)
+		if err != nil {
+			log.Fatalln(err)
+		}
+	} else {
+		w.WriteHeader(http.StatusBadRequest)
+		w.Write([]byte("request method not allowed !!"))
 	}
-
-	for i, v := range names {
-		fmt.Println(i, v)
-	}
-	fmt.Println(try)
 
 }
+
+type School struct {
+	Classes []Class `json:"classes"`
+}
+
+type Class struct {
+	Name     string    `json:"name"`
+	Students []Student `json:"students"`
+}
+
+type Student struct {
+	Name    string  `json:"name"`
+	Age     string  `json:"age"`
+	RollNo  int     `json:"roll_no"`
+	Parents Parents `json:"parents"`
+}
+
+type Parents struct {
+	MotherName     string           `json:"mother_name"`
+	FatherName     string           `json:"father_name"`
+	ContactDetails []ContactDetails `json:"contact_details"`
+}
+
+type ContactDetails struct {
+	Addresses []Address       `json:"addresses"`
+	Mobiles   []MobileNumbers `json:"mobiles"`
+}
+
+type Address struct {
+	HNO         int    `json:"hno"`
+	City        string `json:"city,omitempty"`
+	State       string `json:"state,omitempty"`
+	Country     string `json:"country,omitempty"`
+	PinCode     string `json:"pin_code,omitempty"`
+	AddressType string `json:"address_type,omitempty"`
+}
+type MobileNumbers struct {
+	Number []string `json:"number"`
+}
+
+const (
+	AddressTypeCurrent   = "Current"
+	AddressTypePermanent = "Parmenent"
+)
