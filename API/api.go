@@ -53,7 +53,7 @@ func main() {
 func ShowSchoolDetails(w http.ResponseWriter, r *http.Request) {
 	if r.Method == "GET" {
 		err := json.NewEncoder(w).Encode(s1)
-		if err != nil {
+		if err != nil { 
 			log.Fatalln(err)
 		}
 	} else {
